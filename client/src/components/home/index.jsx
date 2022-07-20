@@ -15,7 +15,7 @@ const Home = () => {
     return (
         <>
             <Header />
-            <Container sx={{ pt: 4 }}>
+            <Container maxWidth="xl" sx={{ pt: 4 }}>
                 <Grid container>
                     <Grid item md={6}>
                         <Typography sx={{ fontSize: 82 }}>
@@ -34,8 +34,6 @@ const Home = () => {
                         </Box>
                     </Grid>
                 </Grid>
-            </Container>
-            <Container>
             <Divider sx={{pt: 4, pb: 4}}/>
 
                 {/* spacing */}
