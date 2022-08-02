@@ -7,7 +7,6 @@ let con = mysql.createConnection({
     user: process.env.MYSQL_USERNAME,
     database: process.env.MYSQL_DATABASE,
     password: process.env.MYSQL_PASSWORD
-
 })
 
 con.connect(function (err) {
