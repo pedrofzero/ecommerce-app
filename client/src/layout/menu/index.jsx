@@ -1,14 +1,14 @@
 import React, { useEffect, useRef } from 'react'
 import { Box } from '@mui/material'
-import { gsap } from 'gsap'
+// import { gsap } from 'gsap'
 
 const Menu = () => {
 
   const menuRef = useRef();
 
-  useEffect(() => {
-    gsap.to(menuRef.current, {height: '100vh', duration: 1})
-  }, [])
+  // useEffect(() => {
+  //   gsap.to(menuRef.current, {height: '100vh', duration: 1})
+  // }, [])
 
   return (
     <>

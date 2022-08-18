@@ -1,10 +1,11 @@
 import React, { Suspense } from 'react'
 import { Routes, Route, Navigate, BrowserRouter } from 'react-router-dom'
+
 import Home from '../components/home'
 import Login from '../components/login'
 import Products from '../components/products'
 import AppLayout from '../layout/appLayout'
-import SingleProduct from '../components/products/product'
+import SingleProduct from '../components/product'
 import Register from '../components/register'
 
 const Router = () => {

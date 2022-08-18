@@ -1,23 +1,28 @@
-import { Box, Divider, Stack } from '@mui/material'
-import { useSelector } from 'react-redux'
 import React, { useRef, useEffect } from 'react'
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useDispatch, useSelector } from 'react-redux'
+import { removeFromCart } from '../../redux/cartSlice'
+import { Box, Divider, Stack } from '@mui/material'
+
+// import { gsap } from 'gsap';
+// import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 const Sidebar = ({ open }) => {
 
     const ref = useRef();
-    const cart = useSelector((state) => state.cart)
+
+    const dispatch = useDispatch();
+
+    const cart = useSelector((state) => state.persistedReducer.cart.cartItems)
     console.log(cart)
 
-    useEffect(() => {
-        
-    })
+    const handleRemoveFromCart = (product) => {
+        dispatch(removeFromCart(product))
+    }
 
     return (
         <div ref={ref} style={styles.sidebar}>
+            <h2 style={{ textAlign: 'right' }} onClick={() => open(false)}>Close</h2>
             <Box sx={{ justifyContent: 'center', px: 2 }}>
-                <h2 style={{ textAlign: 'right' }} onClick={() => open(false)}>Close</h2>
                 <Divider />
                 <Box sx={{ textAlign: 'center' }}>
                     {cart.length === 0 ?
@@ -27,7 +32,16 @@ const Sidebar = ({ open }) => {
                         :
                         <>
                         <Stack direction='column'>
-                            <h1>{cart}</h1>
+                            {cart.map((product, index) => {
+                                return (
+                                    <>
+                                    <h4>{product.name}</h4>
+                                    <h4>{product.cartQuantity}</h4>
+                                    <button onClick={() => handleRemoveFromCart()}>+</button>
+                                    <button onClick={() => handleRemoveFromCart(product)}>-</button>
+                                    </>
+                                )
+                            })}
                         </Stack>
                         </>
                     }
