@@ -7,19 +7,13 @@ import { Box, Stack, Card, CardMedia, Container, Divider, Grid, TextField } from
 import Marquee from "react-fast-marquee";
 import Header from '../../layout/header'
 import Cart from '../../layout/cart';
+import Hero from './Hero';
+import BestSellers from './BestSellers';
+import Contact from './Contact';
 
 const Home = () => {
 
     const [cartOpen, setCartOpen] = useState(false);
-
-    const size = useWindowSize();
-
-    const dispatch = useDispatch();
-    const bestSellers = useSelector((state) => state.persistedReducer.products.bestSellers)
-
-    useEffect(() => {
-        dispatch(bestSellersFetch())
-    }, [])
 
     if (cartOpen) {
         document.body.style.overflow = "hidden"
@@ -29,62 +23,23 @@ const Home = () => {
 
     return (
         <>
+            {/* Modals */}
             <Header cartOpen={cartOpen} setCartOpen={setCartOpen} />
 
             <Container maxWidth="xl" sx={{ pt: 4 }}>
 
-            {cartOpen &&
-                <Cart cartOpen={cartOpen} setCartOpen={setCartOpen}/>
-            }
+                {cartOpen &&
+                    <Cart cartOpen={cartOpen} setCartOpen={setCartOpen} />
+                }
 
-                <Grid container sx={{width: '100%', height: '100%'}}>
-                    <Grid item md={6} sx={{width: '100%'}}>
-                        <h1 style={size <= 768 ? { fontSize: 40, textAlign: 'center'} : { fontSize: 80 }}>
-                            A new shopping experience, tailored to you.
-                        </h1>
-                    </Grid>
-                    <Grid item md={6} sm={0} sx={{width: '100%'}}>
-                        <Box
-                            component='img'
-                            sx={{
-                                margin: 'auto',
-                                height: '800px',
-                                objectFit: 'cover',
-                                width: '100%'
-                            }}
-                            // src='https://images.unsplash.com/photo-1578681994506-b8f463449011?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80'>
-                            src='https://images.unsplash.com/photo-1578592383917-2f0c0f16c78f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80'>
-                        </Box>
-                    </Grid>
-                </Grid>
+                <Hero />
                 <Divider sx={{ pt: 4, pb: 4 }} />
 
                 {/* spacing */}
                 <Box sx={{ my: 2 }} />
 
-                <h1 style={size <= 768 ? { fontSize: 60, textAlign: 'center' } : { fontSize: 60 }}>
-                    Best Sellers
-                </h1>
-                <Grid container spacing={4} alignItems='center' justifyContent='center'>
-                    {bestSellers.map((product, index) => {
-                        return (
-                            <Grid key={index} className='bestseller' item lg={4} md={6} sm={6}>
-                                <Stack direction='column' justifyContent='center'>
-                                    <Link to={`/product/${product.id}`}>
-                                        <CardMedia
-                                            component='img'
-                                            src={`http://${process.env.REACT_APP_IMAGE_PATH}/${product.image_path}`}
-                                        />
-                                    </Link>
-                                    <Stack direction='row' justifyContent='space-between'>
-                                        <h2>{product.name}</h2>
-                                        <h2>{product.price} $</h2>
-                                    </Stack>
-                                </Stack>
-                            </Grid>
-                        )
-                    })}
-                </Grid>
+                <BestSellers />
+
             </Container>
 
             <Box sx={{ padding: '2rem' }}></Box>
@@ -118,27 +73,8 @@ const Home = () => {
                 </Grid>
                 <Box sx={{ p: 4 }} />
 
-                <Grid container>
-                    <Grid item sm={12}>
-                        <Stack direction='column'>
-                            <Box sx={{ textAlign: 'center' }}>
-                                <h2 style={{ fontSize: 40 }}>Got any questions for us? Write us, we would love to help you out!</h2>
-                            </Box>
-                            <Container>
-                                <Box sx={{ height: '400px', margin: '0 auto' }}>
-                                    <Stack direction='column' spacing={4}>
-                                        <TextField id="outlined-basic" label="Name" variant="standard" />
-                                        <TextField id="outlined-basic" label="E-mail" variant="standard" />
-                                        <TextField id="outlined-multiline-flexible" placeholder="Write your message here." multiline maxRows={4} />
-                                        <Box sx={{ height: 80, margin: '0 auto', width: 90, borderRadius: 40, backgroundColor: 'black', color: 'white', '&:hover': { cursor: 'pointer' } }}>
-                                            <h2 style={{ textAlign: 'center' }}>Let's talk!</h2>
-                                        </Box>
-                                    </Stack>
-                                </Box>
-                            </Container>
-                        </Stack>
-                    </Grid>
-                </Grid>
+                <Contact/>
+
             </Container>
         </>
 
