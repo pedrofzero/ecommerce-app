@@ -1,22 +1,22 @@
 import React, { useEffect, useRef } from 'react'
 import { Box } from '@mui/material'
-// import { gsap } from 'gsap'
+import useWindowSize from '../../hooks/useWindowSize';
 
 const Menu = () => {
 
-  const menuRef = useRef();
-
-  // useEffect(() => {
-  //   gsap.to(menuRef.current, {height: '100vh', duration: 1})
-  // }, [])
+  const size = useWindowSize();
 
   return (
     <>
-    <Box ref={menuRef} style={styles.menu}>
-      <Box style={styles.links}>
+      {size < 768 ?
+        <>
         
-      </Box>
-    </Box>
+        </>
+        :
+        <>
+
+        </>
+      }
     </>
   )
 }

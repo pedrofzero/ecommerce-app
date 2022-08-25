@@ -7,24 +7,24 @@ app.use(cors());
 
 // Get 4 shirts (Best Seller)
 app.get('/getBestSellers', (req, res) => {
-    con.query("SELECT * from tshirt LIMIT 3", (err, result, fields) => {
+    con.query("SELECT * from products LIMIT 3", (err, result, fields) => {
         if (err) throw err;
         res.send(result)
     })
 })
 
 // Get all shirts
-app.get('/getShirts', (req, res) => {
-    con.query("SELECT * from tshirt", (err, result, fields) => {
+app.get('/getProducts', (req, res) => {
+    con.query("SELECT * from products", (err, result, fields) => {
         if (err) throw err;
         res.send(result)
     })
 })
 
 // Get shirt by ID
-app.get('/getShirt', (req, res) => {
+app.get('/getProduct', (req, res) => {
     let id = req.query.id;
-    con.query("SELECT * from tshirt WHERE id = ? ", [id], (err, result, fields) => {
+    con.query("SELECT * from products WHERE id = ? ", [id], (err, result, fields) => {
         if (result) {
             res.send(result);
         } 
@@ -35,9 +35,8 @@ app.get('/getShirt', (req, res) => {
     })
 })
 
-app.get('/', (req, res) => {
-    res.send("hello world")
-})
+app.use(express.static('public')); 
+app.use('/images', express.static('images'));
 
 // Start server
 app.listen(3001, () => {

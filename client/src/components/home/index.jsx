@@ -6,11 +6,13 @@ import { bestSellersFetch } from '../../redux/api';
 import { Box, Stack, Card, CardMedia, Container, Divider, Grid, TextField } from '@mui/material'
 import Marquee from "react-fast-marquee";
 import Header from '../../layout/header'
+import Cart from '../../layout/cart';
 
 const Home = () => {
 
-    const size = useWindowSize();
     const [cartOpen, setCartOpen] = useState(false);
+
+    const size = useWindowSize();
 
     const dispatch = useDispatch();
     const bestSellers = useSelector((state) => state.persistedReducer.products.bestSellers)
@@ -19,23 +21,35 @@ const Home = () => {
         dispatch(bestSellersFetch())
     }, [])
 
+    if (cartOpen) {
+        document.body.style.overflow = "hidden"
+    } else {
+        document.body.style.overflow = "auto"
+    }
 
     return (
         <>
-            <Header />
+            <Header cartOpen={cartOpen} setCartOpen={setCartOpen} />
+
             <Container maxWidth="xl" sx={{ pt: 4 }}>
-                <Grid container>
-                    <Grid item md={6}>
-                        <h1 style={size <= 768 ? { fontSize: 40, textAlign: 'center' } : { fontSize: 80 }}>
+
+            {cartOpen &&
+                <Cart cartOpen={cartOpen} setCartOpen={setCartOpen}/>
+            }
+
+                <Grid container sx={{width: '100%', height: '100%'}}>
+                    <Grid item md={6} sx={{width: '100%'}}>
+                        <h1 style={size <= 768 ? { fontSize: 40, textAlign: 'center'} : { fontSize: 80 }}>
                             A new shopping experience, tailored to you.
                         </h1>
                     </Grid>
-                    <Grid item md={6} sm={0}>
+                    <Grid item md={6} sm={0} sx={{width: '100%'}}>
                         <Box
                             component='img'
                             sx={{
                                 margin: 'auto',
-                                height: 'auto',
+                                height: '800px',
+                                objectFit: 'cover',
                                 width: '100%'
                             }}
                             // src='https://images.unsplash.com/photo-1578681994506-b8f463449011?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80'>
@@ -52,26 +66,29 @@ const Home = () => {
                     Best Sellers
                 </h1>
                 <Grid container spacing={4} alignItems='center' justifyContent='center'>
-                            {bestSellers.map((product, index) => {
-                                return (
-                                    <Grid key={index} className='bestseller' item lg={4} md={6} sm={6}>
-                                        <Stack direction='column' justifyContent='center'>
-                                            <Link to={`/product/${product.id}`}>
-                                                <CardMedia
-                                                    component='img'
-                                                    src='https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcRbhEh1UcaI0-who2Z2z5jevpCGT0Pc3tvY4ucC68Q4AuObWjKEPA4bwy-jzcD4Zy_kd6iKUVl9DxgF&usqp=CAc'
-                                                />
-                                            </Link>
-                                            <Stack direction='row' justifyContent='space-between'>
-                                                <h2>{product.name}</h2>
-                                                <h2>{product.price} $   </h2>
-                                            </Stack>
-                                        </Stack>
-                                    </Grid>
-                                )
-                            })}
-                        </Grid>
+                    {bestSellers.map((product, index) => {
+                        return (
+                            <Grid key={index} className='bestseller' item lg={4} md={6} sm={6}>
+                                <Stack direction='column' justifyContent='center'>
+                                    <Link to={`/product/${product.id}`}>
+                                        <CardMedia
+                                            component='img'
+                                            src={`http://${process.env.REACT_APP_IMAGE_PATH}/${product.image_path}`}
+                                        />
+                                    </Link>
+                                    <Stack direction='row' justifyContent='space-between'>
+                                        <h2>{product.name}</h2>
+                                        <h2>{product.price} $</h2>
+                                    </Stack>
+                                </Stack>
+                            </Grid>
+                        )
+                    })}
+                </Grid>
             </Container>
+
+            <Box sx={{ padding: '2rem' }}></Box>
+
             <Marquee speed="150">
                 <Box sx={{ fontSize: 140 }}>
                     <span style={{ paddingRight: '40px' }}>innovative -</span>

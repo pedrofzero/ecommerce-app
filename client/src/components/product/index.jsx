@@ -3,11 +3,14 @@ import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { singleProductFetch } from '../../redux/api'
 import { addToCart } from '../../redux/cartSlice'
-import { Box, Grid } from '@mui/material'
+import { Box, Grid, Stack } from '@mui/material'
 import Header from '../../layout/header'
+import useWindowSize from '../../hooks/useWindowSize'
 
 const SingleProduct = () => {
 
+
+    const size = useWindowSize();
     const [loading, setLoading] = useState(true);
 
     // get product id
@@ -18,10 +21,12 @@ const SingleProduct = () => {
     const currentProduct = useSelector((state) => state.persistedReducer.products.currentProduct)
 
     useEffect(() => {
-        dispatch(singleProductFetch(id));
-        if (currentProduct.length !== 0) {
+        const fetchProduct = async () => {
+            const product = await dispatch(singleProductFetch(id));
             setLoading(false)
         }
+
+        fetchProduct();
     }, [])
 
 
@@ -35,34 +40,38 @@ const SingleProduct = () => {
                 &&
                 <>
                     <Header />
-                    <Grid container sx={{ px: 2, margin: 0, padding: 0, border: '1px red solid' }}>
-                        <Grid item sm={12} md={6}>
+                    <Grid container sx={{ px: 2, margin: 0, padding: '1em' }}>
+                        <Grid item sm={12} md={6} sx={{ textAlign: 'center', padding: '1em' }}>
+                            <img style={{ width: '100%', height: '100%', objectFit: 'cover' }} src={`http://${process.env.REACT_APP_IMAGE_PATH}/${currentProduct[0].image_path}`} />
 
                         </Grid>
-                        <Grid item sm={12} md={6}>
+                        <Grid item sm={12} md={6} sx={{ paddingLeft: '10px' }}>
                             <Box style={{ margin: 0, padding: 0 }}>
-                                <h1 style={{ fontSize: 60, textAlign: 'center', margin: 0 }}>
+                                <h1 style={{ fontSize: 60, margin: 0 }}>
                                     {currentProduct[0].name}
                                 </h1>
-                                <p style={{ fontSize: 60, textAlign: 'center', margin: 0, padding: 0 }}>
+                                <hr />
+                                <p style={{ fontSize: 30, margin: 0, paddingTop: '2rem' }}>
                                     {currentProduct[0].description}
                                 </p>
-                                <Box sx={{
-                                    backgroundColor: '#000', borderRadius: '10px', color: 'white', width: '500px', height: '50px', textAlign: 'center', margin: '0 auto', cursor: 'pointer',
-                                    '&:hover': {
-                                        backgroundColor: '#eb4034'
-                                    }
-                                }}>
-                                    <h1 onClick={() => handleAddToCart(currentProduct)}>Add to Cart</h1>
-                                </Box>
+                                <Box sx={size < 768 ? { padding: '4em' } : { padding: '7em' }}></Box>
+
+                                <Stack direction='row' justifyContent='space-between' sx={{}}>
+                                    <p style={{ fontSize: 40, margin: 0, paddingTop: 40, textAlign: 'end' }}>{currentProduct[0].price}€</p>
+                                    <Box sx={{ height: 100, width: 130, borderRadius: 40, backgroundColor: 'black', color: 'white', '&:hover': { cursor: 'pointer' } }}>
+                                        <p onClick={() => handleAddToCart(currentProduct)} style={{ textAlign: 'center', fontSize: 25, }}>Add to cart</p>
+                                    </Box>
+                                </Stack>
+                                <hr />
+
                             </Box>
                         </Grid>
                     </Grid>
                 </>
             }
-
         </>
     )
 }
+
 
 export default SingleProduct

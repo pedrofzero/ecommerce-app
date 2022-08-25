@@ -13,7 +13,7 @@ export const cartSlice = createSlice({
     addToCart: (state, action) => {
       // console.log(state.cartItems.findIndex( (item) => item.id === 1));
       const itemIndex = state.cartItems.findIndex((item) => item.id === action.payload.id)
-      console.log(itemIndex)
+      // console.log(itemIndex)
       if (itemIndex >= 0) {
         state.cartItems[itemIndex].cartQuantity += 1;
       } else {
@@ -26,7 +26,7 @@ export const cartSlice = createSlice({
     removeFromCart: (state, action) => {
       // console.log(state.cartItems.findIndex( (item) => item.id === 1));
       const itemIndex = state.cartItems.findIndex((item) => item.id === action.payload.id)
-      console.log(itemIndex)
+      // console.log(itemIndex)
       if (itemIndex >= 0) {
         if (state.cartItems[itemIndex].cartQuantity !== 1) {
           state.cartItems[itemIndex].cartQuantity -= 1;
