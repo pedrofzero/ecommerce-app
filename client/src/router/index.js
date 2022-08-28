@@ -5,6 +5,7 @@ import Home from '../components/home'
 import Products from '../components/products'
 import AppLayout from '../layout/appLayout'
 import SingleProduct from '../components/product'
+import Category from '../components/products/category'
 
 const Router = () => {
     return (
@@ -16,12 +17,12 @@ const Router = () => {
                         <Route exact path="/home">
                             <Route index element={<Home />} />
                         </Route>
-                        {/* <Route exact path="/login">
-                            <Route index element={<Login />} />
+                        <Route exact path="/collections/all">
+                            <Route index element={<Products />} />
                         </Route>
-                        <Route exact path="/register">
-                            <Route index element={<Register />} />
-                        </Route> */}
+                        <Route exact path="/collections/:type">
+                            <Route index element={<Category />} />
+                        </Route>
                         <Route exact path="/product/:id">
                             <Route index element={<SingleProduct />} />
                         </Route>

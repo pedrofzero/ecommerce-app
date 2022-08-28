@@ -1,4 +1,4 @@
-import { productsFetch, bestSellersFetch, singleProductFetch } from './api'
+import { productsFetch, bestSellersFetch, singleProductFetch, productsFetchByFilter } from './api'
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
@@ -22,6 +22,17 @@ export const productsSlice = createSlice({
         state.items = action.payload
     },
     [productsFetch.rejected] : (state, action) => {
+        state.status = "rejected"
+    },
+
+    [productsFetchByFilter.pending] : (state, action) => {
+        state.status = "pending"
+    },
+    [productsFetchByFilter.fulfilled] : (state, action) => {
+        state.status = "success"
+        state.items = action.payload
+    },
+    [productsFetchByFilter.rejected] : (state, action) => {
         state.status = "rejected"
     },
 

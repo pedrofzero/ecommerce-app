@@ -10,10 +10,14 @@ import Cart from '../../layout/cart';
 import Hero from './Hero';
 import BestSellers from './BestSellers';
 import Contact from './Contact';
+import Menu from '../../layout/menu';
 
 const Home = () => {
 
     const [cartOpen, setCartOpen] = useState(false);
+    const [menuOpen, setMenuOpen] = useState(false);
+
+    console.log(menuOpen)
 
     if (cartOpen) {
         document.body.style.overflow = "hidden"
@@ -23,14 +27,19 @@ const Home = () => {
 
     return (
         <>
+
             {/* Modals */}
-            <Header cartOpen={cartOpen} setCartOpen={setCartOpen} />
+            {menuOpen &&
+                <Menu open={menuOpen} setMenuOpen={setMenuOpen} />
+            }
+
+            {cartOpen &&
+                <Cart setCartOpen={setCartOpen} />
+            }
+
+            <Header setCartOpen={setCartOpen} setMenuOpen={setMenuOpen} />
 
             <Container maxWidth="xl" sx={{ pt: 4 }}>
-
-                {cartOpen &&
-                    <Cart cartOpen={cartOpen} setCartOpen={setCartOpen} />
-                }
 
                 <Hero />
                 <Divider sx={{ pt: 4, pb: 4 }} />
@@ -73,7 +82,7 @@ const Home = () => {
                 </Grid>
                 <Box sx={{ p: 4 }} />
 
-                <Contact/>
+                <Contact />
 
             </Container>
         </>
