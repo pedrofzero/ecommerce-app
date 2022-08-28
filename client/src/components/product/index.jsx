@@ -49,9 +49,6 @@ const SingleProduct = () => {
             {menuOpen &&
                 <Menu open={menuOpen} setMenuOpen={setMenuOpen} />
             }
-            {cartOpen &&
-                <Cart open={cartOpen} setCartOpen={setCartOpen} />
-            }
 
             {!loading
                 &&

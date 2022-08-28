@@ -16,7 +16,7 @@ const Header = ({ setCartOpen, setMenuOpen }) => {
                     <a><h1 onClick={() => setMenuOpen(true)} style={{ margin: 0, cursor: 'pointer' }}>menu</h1></a>
                     <a><h1 onClick={() => navigate('/home')} style={{ margin: 0, cursor: 'pointer' }}>home</h1></a>
                     <Stack direction='row' sx={{ p: 0, m: 0 }}>
-                        <h1 onClick={() => setCartOpen(true)} style={{ margin: 0, cursor: 'pointer' }}>cart</h1>
+                        <h1 onClick={() => navigate('/cart')} style={{ margin: 0, cursor: 'pointer' }}>cart</h1>
                     </Stack>
                 </Stack>
                 <Box sx={{ pb: 2 }}></Box>

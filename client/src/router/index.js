@@ -6,6 +6,7 @@ import Products from '../components/products'
 import AppLayout from '../layout/appLayout'
 import SingleProduct from '../components/product'
 import Category from '../components/products/category'
+import Cart from '../components/cart'
 
 const Router = () => {
     return (
@@ -16,6 +17,9 @@ const Router = () => {
                         <Route index element={<Navigate to="/home" />} />
                         <Route exact path="/home">
                             <Route index element={<Home />} />
+                        </Route>
+                        <Route exact path="/cart">
+                            <Route index element={<Cart />} />
                         </Route>
                         <Route exact path="/collections/all">
                             <Route index element={<Products />} />

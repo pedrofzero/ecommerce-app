@@ -33,9 +33,6 @@ const Home = () => {
                 <Menu open={menuOpen} setMenuOpen={setMenuOpen} />
             }
 
-            {cartOpen &&
-                <Cart setCartOpen={setCartOpen} />
-            }
 
             <Header setCartOpen={setCartOpen} setMenuOpen={setMenuOpen} />
 

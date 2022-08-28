@@ -52,7 +52,7 @@ const Products = () => {
                     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                         <h1 style={{
                             margin: 0, padding: 0, display: 'flex',
-                            justifyContent: 'center', alignItems: 'center', width: '100%', fontSize: `${size < 600 ? '80px' : '140px'}`
+                            justifyContent: 'center', alignItems: 'center', width: '100%', fontSize: `${size < 600 ? '80px' : '100px'}`
                         }}>Collection</h1>
                     </Box>
                     <Grid container>
