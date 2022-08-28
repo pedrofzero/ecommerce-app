@@ -1,7 +1,6 @@
 client/node_modules
-client/.env
-
 server/images
 server/node_modules
 server/.env
 node_modules
+client/.env
