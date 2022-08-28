@@ -21,6 +21,14 @@ app.get('/getProducts', (req, res) => {
     })
 })
 
+app.get('/getProductsByType', (req, res) => {
+    let type = req.query.type;
+    con.query("SELECT * from products WHERE type = ? ", [type], (err, result, fields) => {
+        if (err) throw err;
+        res.send(result)
+    })
+})
+
 // Get shirt by ID
 app.get('/getProduct', (req, res) => {
     let id = req.query.id;
