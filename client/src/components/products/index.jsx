@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import Header from '../../layout/header'
 import Menu from '../../layout/menu';
 import { useNavigate } from 'react-router-dom';
-import Cart from '../../layout/cart';
 import useWindowSize from '../../hooks/useWindowSize';
 
 const Products = () => {
@@ -13,7 +12,6 @@ const Products = () => {
     const size = useWindowSize();
     const navigate = useNavigate();
 
-    const [cartOpen, setCartOpen] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
     const [loading, setLoading] = useState(true);
 
@@ -30,25 +28,16 @@ const Products = () => {
     }, [])
 
 
-    if (cartOpen) {
-        document.body.style.overflow = "hidden"
-    } else {
-        document.body.style.overflow = "auto"
-    }
-
     return (
         <>
 
             {menuOpen &&
                 <Menu open={menuOpen} setMenuOpen={setMenuOpen} />
             }
-            {cartOpen &&
-                <Cart open={cartOpen} setCartOpen={setCartOpen} />
-            }
 
             {!loading &&
                 <>
-                    <Header setCartOpen={setCartOpen} setMenuOpen={setMenuOpen} />
+                    <Header setMenuOpen={setMenuOpen} />
                     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
                         <h1 style={{
                             margin: 0, padding: 0, display: 'flex',

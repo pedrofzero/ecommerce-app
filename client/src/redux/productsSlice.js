@@ -1,5 +1,5 @@
 import { productsFetch, bestSellersFetch, singleProductFetch, productsFetchByFilter } from './api'
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   items: [],

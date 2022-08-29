@@ -6,7 +6,6 @@ import { bestSellersFetch } from '../../redux/api';
 import { Box, Stack, Card, CardMedia, Container, Divider, Grid, TextField } from '@mui/material'
 import Marquee from "react-fast-marquee";
 import Header from '../../layout/header'
-import Cart from '../../layout/cart';
 import Hero from './Hero';
 import BestSellers from './BestSellers';
 import Contact from './Contact';
@@ -14,16 +13,9 @@ import Menu from '../../layout/menu';
 
 const Home = () => {
 
-    const [cartOpen, setCartOpen] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
 
     console.log(menuOpen)
-
-    if (cartOpen) {
-        document.body.style.overflow = "hidden"
-    } else {
-        document.body.style.overflow = "auto"
-    }
 
     return (
         <>
@@ -33,8 +25,7 @@ const Home = () => {
                 <Menu open={menuOpen} setMenuOpen={setMenuOpen} />
             }
 
-
-            <Header setCartOpen={setCartOpen} setMenuOpen={setMenuOpen} />
+            <Header setMenuOpen={setMenuOpen} />
 
             <Container maxWidth="xl" sx={{ pt: 4 }}>
 

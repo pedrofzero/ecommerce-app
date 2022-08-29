@@ -5,13 +5,11 @@ import { singleProductFetch } from '../../redux/api'
 import { addToCart } from '../../redux/cartSlice'
 import { Box, Grid, Stack } from '@mui/material'
 import Menu from '../../layout/menu'
-import Cart from '../../layout/cart'
 import Header from '../../layout/header'
 import useWindowSize from '../../hooks/useWindowSize'
 
 const SingleProduct = () => {
 
-    const [cartOpen, setCartOpen] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
 
     const size = useWindowSize();
@@ -33,12 +31,6 @@ const SingleProduct = () => {
         fetchProduct();
     }, [])
 
-    if (cartOpen) {
-        document.body.style.overflow = "hidden"
-    } else {
-        document.body.style.overflow = "auto"
-    }
-
 
     const handleAddToCart = (product) => {
         dispatch(addToCart(product[0]))
@@ -53,10 +45,10 @@ const SingleProduct = () => {
             {!loading
                 &&
                 <>
-                    <Header setMenuOpen={setMenuOpen} setCartOpen={setCartOpen} />
+                    <Header setMenuOpen={setMenuOpen} />
                     <Grid container sx={{ px: 2, margin: 0, padding: '1em' }}>
                         <Grid item sm={12} md={6} sx={{ textAlign: 'center', padding: '1em' }}>
-                            <img style={{ width: '100%', height: '100%', objectFit: 'cover' }} src={`http://${process.env.REACT_APP_IMAGE_PATH}/${currentProduct[0].image_path}`} />
+                            <img style={{ width: '100%', height: '90vh', objectFit: 'cover' }} src={`http://${process.env.REACT_APP_IMAGE_PATH}/${currentProduct[0].image_path}`} />
 
                         </Grid>
                         <Grid item sm={12} md={6} sx={{ paddingLeft: '10px' }}>

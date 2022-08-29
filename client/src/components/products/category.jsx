@@ -5,13 +5,13 @@ import { productsFetchByFilter } from '../../redux/api';
 import { Box, Grid, Stack } from '@mui/material';
 import Menu from '../../layout/menu';
 import Header from '../../layout/header';
-import Cart from '../../layout/cart';
+
+// not using this one atm
 
 const Category = () => {
 
     const navigate = useNavigate();
 
-    const [cartOpen, setCartOpen] = useState(false);
     const [menuOpen, setMenuOpen] = useState(false);
     const [loading, setLoading] = useState(true);
 
@@ -33,15 +33,9 @@ const Category = () => {
     }, [])
 
 
-    if (cartOpen) {
-        document.body.style.overflow = "hidden"
-    } else {
-        document.body.style.overflow = "auto"
-    }
-
     return (
         <>
-            <Header setCartOpen={setCartOpen} setMenuOpen={setMenuOpen} />
+            <Header setMenuOpen={setMenuOpen} />
             <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                 <h1 style={{
                     margin: 0, padding: 0, display: 'flex', justifyContent: 'center', border: '1px black', borderStyle: 'solid none', width: '100%', fontSize: '140px'

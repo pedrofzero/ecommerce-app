@@ -31,3 +31,7 @@ a {
 body::-webkit-scrollbar {
   display: none;
 }
+
+div::-webkit-scrollbar {
+  display: none;
+}
