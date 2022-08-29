@@ -15,9 +15,8 @@ const Menu = ({ menuOpen, setMenuOpen }) => {
       {size < 768 ?
         <>
           <Box sx={menuOpen ? styles.open : styles.closed}>
-            <Box sx={{ border: '1px red solid', display: 'flex', alignItems: 'center', pl: 4 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', pl: 4 }}>
               <Stack direction='row' spacing={2} sx={{ my: 2 }} onClick={() => setMenuOpen(false)}>
-                <img src={closeIcon} />
                 <h2>Close</h2>
               </Stack>
 
@@ -33,10 +32,9 @@ const Menu = ({ menuOpen, setMenuOpen }) => {
         :
         <>
           <Box sx={menuOpen ? styles.open : styles.closed}>
-            <Box sx={{ border: '1px red solid', display: 'flex', alignItems: 'center', pl: 4 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', pl: 4 }}>
               <Stack direction='row' spacing={2} sx={{ my: 2 }} onClick={() => setMenuOpen(false)}>
-                <img src={closeIcon} />
-                <h2>Close</h2>
+                <h1>Close</h1>
               </Stack>
 
             </Box>
@@ -64,7 +62,6 @@ const styles = {
   },
 
   closed: {
-    border: '1px red solid',
     zIndex: 15,
     position: 'fixed',
     height: '100%',
