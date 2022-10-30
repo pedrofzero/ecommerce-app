@@ -35,3 +35,7 @@ body::-webkit-scrollbar {
 div::-webkit-scrollbar {
   display: none;
 }
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

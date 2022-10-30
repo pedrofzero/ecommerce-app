@@ -22,7 +22,7 @@ const Cart = () => {
   const total = useSelector((state) => state.persistedReducer.cart.total)
 
   // stripe
-  const key = process.env.REACT_APP_STRIPE_KEY;
+  // const key = process.env.REACT_APP_STRIPE_KEY;
 
   const [stripeToken, setStripeToken] = useState(null);
 
@@ -30,21 +30,19 @@ const Cart = () => {
     setStripeToken(token)
   }
 
-  useEffect(() => {
-    const makeRequest = async () => {
-      try {
-        const res = await axios.post(`${process.env.REACT_APP_URL_PATH}/api/checkout/payment`, {
-          tokenId: stripeToken.id,
-          amount: total * 100,
-        });
-        navigate('/success', { data: res.data })
-      } catch{}
-    }
-    stripeToken && makeRequest();
-  }, [stripeToken, total, navigate])
+  // useEffect(() => {
+  //   const makeRequest = async () => {
+  //     try {
+  //       const res = await axios.post(`${process.env.REACT_APP_URL_PATH}/api/checkout/payment`, {
+  //         tokenId: stripeToken.id,
+  //         amount: total * 100,
+  //       });
+  //       navigate('/success', { data: res.data })
+  //     } catch{}
+  //   }
+  //   stripeToken && makeRequest();
+  // }, [stripeToken, total, navigate])
 
-
-  
   return (
     <>
 
@@ -95,7 +93,7 @@ const Cart = () => {
           </Grid>
 
           <Grid item xs={12} md={4}>
-            <Box sx={{ height: 300, m: 0, p: 0, border: '1px solid #0fc0fc', borderRadius: 5, p: 2, mr: 4 }}>
+            <Box sx={{ height: 300, m: 0, p: 0, border: '1px solid #0fc0fc', borderRadius: 5, mr: 4 }}>
               <Stack direction='column' justifyContent='space-between' sx={{ height: '100%', width: '100%' }}>
                 <h1 style={{ margin: 0, padding: 0 }}>Order Summary:</h1>
                 <Box>
