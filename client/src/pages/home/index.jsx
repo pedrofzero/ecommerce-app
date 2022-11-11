@@ -6,49 +6,37 @@ import { bestSellersFetch } from '../../redux/api';
 import { Box, Stack, Card, CardMedia, Container, Divider, Grid, TextField } from '@mui/material'
 import Marquee from "react-fast-marquee";
 import Header from '../../layout/header'
-import Hero from './Hero';
-import BestSellers from './BestSellers';
-import Contact from './Contact';
+import BestSellers from '../../components/BestSellers';
+import Contact from '../../components/Contact';
 import Menu from '../../layout/menu';
+import image from '../../assets/Vb9fn66eyuFjLSSKQEk7Lo.jpeg'
+
+
 
 const Home = () => {
 
     const [menuOpen, setMenuOpen] = useState(false);
-
-    console.log(menuOpen)
+    const size = useWindowSize();
 
     return (
         <>
-
-            {/* Modals */}
-            {menuOpen &&
-                <Menu open={menuOpen} setMenuOpen={setMenuOpen} />
-            }
-
             <Header setMenuOpen={setMenuOpen} />
+            <img src='https://res.cloudinary.com/daibebfol/image/upload/v1668018809/Vb9fn66eyuFjLSSKQEk7Lo_dufaua.jpg' className='object-fit w-full m-auto'/>
 
-            <Container maxWidth="xl" sx={{ pt: 4 }}>
+            <div className='border-2 border-solid border-black'></div>
+            <BestSellers />
 
-                <Hero />
-                <Divider sx={{ pt: 4, pb: 4 }} />
-
-                {/* spacing */}
-                <Box sx={{ my: 2 }} />
-
-                <BestSellers />
-
-            </Container>
 
             <Box sx={{ padding: '2rem' }}></Box>
 
             <Marquee speed="150">
-                <Box sx={{ fontSize: 140 }}>
+                <div className='text-6xl'>
                     <span style={{ paddingRight: '40px' }}>innovative -</span>
                     <span style={{ paddingRight: '40px' }}>fresh -</span>
                     <span style={{ paddingRight: '40px' }}>style -</span>
                     <span style={{ paddingRight: '40px' }}>advanced -</span>
                     <span style={{ paddingRight: '40px' }}>kewl</span>
-                </Box>
+                </div>
             </Marquee>
 
             <Box sx={{ p: 4 }} />

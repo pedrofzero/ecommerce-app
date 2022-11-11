@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Badge, Box, Button, Stack, Typography, Divider } from '@mui/material';
 import Menu from '../menu'
 import { useSelector } from 'react-redux';
+import { GiShoppingBag } from 'react-icons/gi'
 
 const Header = ({ setMenuOpen }) => {
 
@@ -12,19 +12,34 @@ const Header = ({ setMenuOpen }) => {
     return (
         <>
             {/* sort out the fixed stuff laters */}
-            <Box sx={{ width: '100%', top: 0, zIndex: 10, backgroundColor: '#fcf5ed' }}>
-                <Stack direction='row' justifyContent='space-between' sx={{ px: 8, py: 2, height: '100%' }}>
-                    <a><h1 onClick={() => setMenuOpen(true)} style={{ margin: 0, cursor: 'pointer' }}>menu</h1></a>
-                    <a><h1 onClick={() => navigate('/home')} style={{ margin: 0, cursor: 'pointer' }}>home</h1></a>
-                    <Stack direction='row' sx={{ p: 0, m: 0 }}>
-                        <h1 onClick={() => navigate('/cart')} style={{ margin: 0, cursor: 'pointer' }}>cart ({cartAmount})</h1>
-                    </Stack>
-                </Stack>
-                <Box sx={{ pb: 2 }}></Box>
-                <Box sx={{ border: '1px solid black', borderLeft: 0, borderRight: 0 }}></Box>
-            </Box>
+            <div className="my-2 p-4 w-full h-16 flex justify-between items-center">
+                <div className='text-sm'>
+                </div>
+                <div className="flex flex-col justify-between items-center">
+                    <div className='text-4xl' style={title}>
+                        sneakers
+                    </div>
+                    <div class="flex justify-between items-center text-center gap-4 cursor-pointer">
+                        <p>MEN</p>
+                        <p>WOMEN</p>
+                        <p>ACCESSORIES</p>
+                    </div>
+                </div>
+                <div className='text-sm flex items-center gap-2 relative'>
+                    <GiShoppingBag size={30} />
+                    <div className='absolute top-0 left-4 rounded-xl bg-blue-400 w-4 text-center'>
+                        {cartAmount}
+                    </div>
+                </div>
+            </div>
+            <div className='border-b-2 border-solid border-black'></div>
         </>
     )
+}
+
+const title = {
+    fontSize: '2rem',
+    fontFamily: 'Rubik Mono One',
 }
 
 export default Header

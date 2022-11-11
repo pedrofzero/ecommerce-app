@@ -1,38 +1,28 @@
 import React, { Suspense } from 'react'
-import { Routes, Route, Navigate, BrowserRouter } from 'react-router-dom'
-
-import Home from '../components/home'
-import Products from '../components/products'
+import { Route, createBrowserRouter, RouterProvider, createRoutesFromElements } from 'react-router-dom'
 import AppLayout from '../layout/appLayout'
-import SingleProduct from '../components/product'
-import Category from '../components/products/category'
-import Cart from '../components/cart'
+import Cart from '../pages/cart'
+import Home from '../pages/home'
+import SingleProduct from '../pages/product'
+import Products from '../pages/products'
+import Category from '../pages/products/category'
 
 const Router = () => {
+
+    const router = createBrowserRouter(
+        createRoutesFromElements(
+            <>
+                <Route path="/" element={<Home />} />
+                <Route path="/cart" element={<Cart />} />
+                <Route exact path="/product/:id" element={<SingleProduct />} />
+            </>
+        )
+    )
     return (
         <Suspense fallback={<div className='loading' />}>
-            <BrowserRouter>
-                <AppLayout>
-                    <Routes>
-                        <Route index element={<Navigate to="/home" />} />
-                        <Route exact path="/home">
-                            <Route index element={<Home />} />
-                        </Route>
-                        <Route exact path="/cart">
-                            <Route index element={<Cart />} />
-                        </Route>
-                        <Route exact path="/collections/all">
-                            <Route index element={<Products />} />
-                        </Route>
-                        <Route exact path="/collections/:type">
-                            <Route index element={<Category />} />
-                        </Route>
-                        <Route exact path="/product/:id">
-                            <Route index element={<SingleProduct />} />
-                        </Route>
-                    </Routes>
-                </AppLayout>
-            </BrowserRouter>
+            <AppLayout>
+                <RouterProvider router={router} />
+            </AppLayout>
         </Suspense>
     )
 }
