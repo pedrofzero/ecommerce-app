@@ -12,7 +12,7 @@ const Header = ({ setMenuOpen }) => {
     return (
         <>
             {/* sort out the fixed stuff laters */}
-            <div className="my-2 p-4 w-full h-16 flex justify-between items-center">
+            <div className="my-2 p-4 px-6 w-full h-16 flex justify-between items-center">
                 <div className='text-sm'>
                 </div>
                 <div className="flex flex-col justify-between items-center">
@@ -20,12 +20,12 @@ const Header = ({ setMenuOpen }) => {
                         sneakers
                     </div>
                     <div class="flex justify-between items-center text-center gap-4 cursor-pointer">
-                        <p>MEN</p>
-                        <p>WOMEN</p>
-                        <p>ACCESSORIES</p>
+                        <p className='hover:underline'>MEN</p>
+                        <p className='hover:underline'>WOMEN</p>
+                        <p className='hover:underline'>ACCESSORIES</p>
                     </div>
                 </div>
-                <div className='text-sm flex items-center gap-2 relative'>
+                <div className='text-sm flex items-center gap-2 relative transition hover:scale-125'>
                     <GiShoppingBag size={30} />
                     <div className='absolute top-0 left-4 rounded-xl bg-blue-400 w-4 text-center'>
                         {cartAmount}

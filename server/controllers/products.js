@@ -31,16 +31,6 @@ const getProduct = (req, res) => {
             id
         }
     })
-
-    pool.query("SELECT * from Sneakers WHERE id = (?) ", [id], (err, result, fields) => {
-        if (result) {
-            res.send(result.rows);
-        }
-        if (err) {
-            console.log(err);
-            res.send(err);
-        }
-    })
 }
 
 module.exports = { getBestSellers, getProducts, getProductsByType, getProduct }

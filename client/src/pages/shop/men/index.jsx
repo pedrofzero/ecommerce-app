@@ -1,11 +1,11 @@
 import React from 'react'
 
-const Products = ({data}) => {
+const Men = () => {
   return (
     <div>
-
+        
     </div>
   )
 }
 
-export default Products
+export default Men

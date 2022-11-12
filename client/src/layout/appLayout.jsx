@@ -1,10 +1,10 @@
 import { Box } from '@mui/material'
 import React from 'react'
 
-const AppLayout = ({children}) => {
+const AppLayout = ({ children }) => {
   return (
     <Box sx={styles.layout}>
-        <main>{children}</main>
+      <main>{children}</main>
     </Box>
   )
 }

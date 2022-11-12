@@ -1,41 +1,49 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState } from 'react'
 import useWindowSize from '../../hooks/useWindowSize'
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { bestSellersFetch } from '../../redux/api';
 import { Box, Stack, Card, CardMedia, Container, Divider, Grid, TextField } from '@mui/material'
 import Marquee from "react-fast-marquee";
 import Header from '../../layout/header'
 import BestSellers from '../../components/BestSellers';
 import Contact from '../../components/Contact';
-import Menu from '../../layout/menu';
-import image from '../../assets/Vb9fn66eyuFjLSSKQEk7Lo.jpeg'
+import ShowProduct from '../../components/ShowProduct';
 
 
 
 const Home = () => {
 
-    const [menuOpen, setMenuOpen] = useState(false);
     const size = useWindowSize();
+    const dispatch = useDispatch();
+
+    const getFrontPageData = () => {
+        dispatch(bestSellersFetch())
+        dispatch(menProductsFetch())
+        dispatch(womenProductsFetch())
+    }
+
+    const bestSellers = useSelector((state) => state.persistedReducer.products.bestSellers)
+    console.log(bestSellers)
+
 
     return (
         <>
-            <Header setMenuOpen={setMenuOpen} />
-            <img src='https://res.cloudinary.com/daibebfol/image/upload/v1668018809/Vb9fn66eyuFjLSSKQEk7Lo_dufaua.jpg' className='object-fit w-full m-auto'/>
+            <Header />
+            <img src='https://res.cloudinary.com/daibebfol/image/upload/v1668018809/Vb9fn66eyuFjLSSKQEk7Lo_dufaua.jpg' className='object-fit w-full m-auto' />
 
             <div className='border-2 border-solid border-black'></div>
-            <BestSellers />
-
+            <ShowProduct title="Best Sellers" data={bestSellers}/>
 
             <Box sx={{ padding: '2rem' }}></Box>
+
+            {/* <ShowProduct title="Men" data={menProducts} /> */}
+
 
             <Marquee speed="150">
                 <div className='text-6xl'>
                     <span style={{ paddingRight: '40px' }}>innovative -</span>
                     <span style={{ paddingRight: '40px' }}>fresh -</span>
-                    <span style={{ paddingRight: '40px' }}>style -</span>
-                    <span style={{ paddingRight: '40px' }}>advanced -</span>
-                    <span style={{ paddingRight: '40px' }}>kewl</span>
+                    <span style={{ paddingRight: '40px' }}>stylish -</span>
                 </div>
             </Marquee>
 
