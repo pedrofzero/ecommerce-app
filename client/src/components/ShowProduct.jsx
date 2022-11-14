@@ -1,9 +1,10 @@
-import React, { useState }  from 'react'
+import React, { useState } from 'react'
 import useWindowSize from '../hooks/useWindowSize';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import Spinner from '../components/Spinner'
 
-const ShowProduct = ({title, data}) => {
+const ShowProduct = ({ title, data }) => {
 
   const size = useWindowSize();
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ const ShowProduct = ({title, data}) => {
       </h1>
       <div className='border-2 border-solid border-black my-4'></div>
       <div className='grid grid-cols-1 sm:grid-cols-3 gap-8'>
-        {
+        {!data ? <Spinner /> :
           data.filter((item, index) => index < 3).map((product, index) => {
             return (
               <div>
