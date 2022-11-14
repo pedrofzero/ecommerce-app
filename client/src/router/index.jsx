@@ -5,8 +5,6 @@ import Header from '../layout/header'
 import Cart from '../pages/cart'
 import Home from '../pages/home'
 import SingleProduct from '../pages/product'
-import Products from '../pages/products'
-import Category from '../pages/products/category'
 
 const Router = () => {
 

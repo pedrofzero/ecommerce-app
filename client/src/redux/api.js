@@ -2,16 +2,16 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios';
 
 
-export const menProducts = createAsyncThunk(
+export const menProductsFetch = createAsyncThunk(
     "products/men", async () => {
-        const response = await axios.get(`${import.meta.env.VITE_URL_PATH}/getProducts`)
+        const response = await axios.get(`${import.meta.env.VITE_URL_PATH}/getMenProducts`)
         return response?.data
     }
 )
 
-export const womenProducts = createAsyncThunk(
+export const womenProductsFetch = createAsyncThunk(
     "products/women", async () => {
-        const response = await axios.get(`${import.meta.env.VITE_URL_PATH}/getProducts`)
+        const response = await axios.get(`${import.meta.env.VITE_URL_PATH}/getWomenProducts`)
         return response?.data
     }
 )
@@ -25,7 +25,9 @@ export const bestSellersFetch = createAsyncThunk(
 
 export const singleProductFetch = createAsyncThunk(
     "products/singleProductFetch", async (id) => {
-        const response = await axios.get(`${import.meta.env.VITE_URL_PATH}/getProduct?id=${id}`)
+        const response = await axios.post(`${import.meta.env.VITE_URL_PATH}/getProduct`, {
+                id
+        })
         return response?.data
     }
 )

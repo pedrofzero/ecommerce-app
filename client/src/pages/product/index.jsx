@@ -3,21 +3,18 @@ import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { singleProductFetch } from '../../redux/api'
 import { addToCart } from '../../redux/cartSlice'
-import { Box, Grid, Stack } from '@mui/material'
-import Menu from '../../layout/menu'
 import Header from '../../layout/header'
-import useWindowSize from '../../hooks/useWindowSize'
+import Spinner from '../../components/Spinner'
 
 const SingleProduct = () => {
 
-    const size = useWindowSize();
+    const dispatch = useDispatch()
     const [loading, setLoading] = useState(true);
 
     // get product id
     const params = useParams();
     const id = params.id
 
-    const dispatch = useDispatch()
     const currentProduct = useSelector((state) => state.persistedReducer.products.currentProduct)
 
     useEffect(() => {
@@ -25,55 +22,42 @@ const SingleProduct = () => {
             const product = await dispatch(singleProductFetch(id));
             setLoading(false)
         }
-
         fetchProduct();
-        console.log(currentProduct)
+
     }, [])
 
-
-    const handleAddToCart = (product) => {
-        dispatch(addToCart(product[0]))
+    const handleAddToCart = () => {
+        dispatch(addToCart(currentProduct))
     }
 
     return (
         <>
-        hello
+            <Header />
+            {loading ?
+                <div className='max-w-xl m-auto flex items-center'>
+                    <Spinner />
+                </div>
+                :
+                <div className='grid grid-cols-1 md:grid-cols-2 p-4'>
+                    <div className='flex m-auto items-center'>
+                        <div className='bg-gray-200'>
+                            <img src={currentProduct.image} className='w-full h-auto' />
+                        </div>
+                    </div>
+                    <div className='mt-4 text-2xl max-w-md m-auto'>
+                        <h1 className='text-center'>{currentProduct.name}</h1>
+                        <div className='border-2 border-solid border-gray-300 max-w-sm w-24 mt-2 ml-4' />
+                        <p className='p-4 text-xl font-light'>{currentProduct.price} €</p>
+                        <div className='text-base p-4 mt-8'>
+                            <p>{currentProduct.description}</p>
+                        </div>
+                        <div className='border-2 border-black border-solid h-12 w-64 rounded-lg text-center flex items-center justify-center m-auto mt-4 hover:bg-gray-200 hover:cursor-pointer transition active:'>
+                            <button onClick={() => handleAddToCart(currentProduct.id)}>Add to cart</button>
+                        </div>
+                    </div>
+                </div>
+            }
         </>
-        // <>
-        //     {!loading
-        //         &&
-        //         <>
-        //             <Header setMenuOpen={setMenuOpen} />
-        //             <Grid container sx={{ px: 2, margin: 0, padding: '1em' }}>
-        //                 <Grid item sm={12} md={6} sx={{ textAlign: 'center', padding: '1em' }}>
-        //                     {/* <img style={{ width: '100%', height: '90vh', objectFit: 'cover' }} src={`http://${VITE.env.REACT_APP_IMAGE_PATH}/${currentProduct[0].image_path}`} /> */}
-
-        //                 </Grid>
-        //                 <Grid item sm={12} md={6} sx={{ paddingLeft: '10px' }}>
-        //                     <Box style={{ margin: 0, padding: 0 }}>
-        //                         <h1 style={{ fontSize: 60, margin: 0 }}>
-        //                             {currentProduct[0].name}
-        //                         </h1>
-        //                         <hr />
-        //                         <p style={{ fontSize: 30, margin: 0, paddingTop: '2rem' }}>
-        //                             {currentProduct[0].description}
-        //                         </p>
-        //                         <Box sx={size < 768 ? { padding: '4em' } : { padding: '7em' }}></Box>
-
-        //                         <Stack direction='row' justifyContent='space-between' sx={{}}>
-        //                             <p style={{ fontSize: 40, margin: 0, paddingTop: 40, textAlign: 'end' }}>{currentProduct[0].price}€</p>
-        //                             <Box sx={{ height: 100, width: 130, borderRadius: 40, backgroundColor: 'black', color: 'white', '&:hover': { cursor: 'pointer' } }}>
-        //                                 <p onClick={() => handleAddToCart(currentProduct)} style={{ textAlign: 'center', fontSize: 25, }}>Add to cart</p>
-        //                             </Box>
-        //                         </Stack>
-        //                         <hr />
-
-        //                     </Box>
-        //                 </Grid>
-        //             </Grid>
-        //         </>
-        //     }
-        // </>
     )
 }
 

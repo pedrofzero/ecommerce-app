@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import Menu from '../menu'
 import { useSelector } from 'react-redux';
 import { GiShoppingBag } from 'react-icons/gi'
+import { BiMenuAltLeft } from 'react-icons/bi'
 
 const Header = ({ setMenuOpen }) => {
 
@@ -13,13 +14,14 @@ const Header = ({ setMenuOpen }) => {
         <>
             {/* sort out the fixed stuff laters */}
             <div className="my-2 p-4 px-6 w-full h-16 flex justify-between items-center">
-                <div className='text-sm'>
+                <div className='block sm:none text-sm'>
+                    <BiMenuAltLeft size={30} />
                 </div>
                 <div className="flex flex-col justify-between items-center">
-                    <div className='text-4xl' style={title}>
+                    <div className='text-1xl sm:text-4xl' style={title}>
                         sneakers
                     </div>
-                    <div class="flex justify-between items-center text-center gap-4 cursor-pointer">
+                    <div class="hidden sm:flex justify-between items-center text-center gap-4 cursor-pointer">
                         <p className='hover:underline'>MEN</p>
                         <p className='hover:underline'>WOMEN</p>
                         <p className='hover:underline'>ACCESSORIES</p>

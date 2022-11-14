@@ -19,8 +19,8 @@ const ShowProduct = ({title, data}) => {
           data.filter((item, index) => index < 3).map((product, index) => {
             return (
               <div>
-                <div key={product.id} className='hover:cursor-pointer flex flex-col items-center bg-gray-200 h-fit border-2 border-solid relative hover:border-blue-500'>
-                  <div>
+                <div key={product.id} className='hover:cursor-pointer flex flex-col items-center h-fit border-2 border-solid relative hover:border-blue-500'>
+                  <div className='bg-gray-200'>
                     <Link to={`/product/${product.id}`}>
                       <img src={product.image} className='h-fit' />
                     </Link>
