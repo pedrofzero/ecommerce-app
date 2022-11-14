@@ -2,35 +2,42 @@ let prisma = require('../db')
 
 const getBestSellers = async (req, res) => {
     const bestSellers = await prisma.sneakers.findMany({
-        skip: Math.floor(Math.random() * 3)
+        orderBy: {
+            createdAt: 'asc'
+        }
     })
     res.send(bestSellers)
 }
 
 // Get all shirts
-const getProducts = (req, res) => {
-    pool.query("SELECT * from Sneakers", (err, result, fields) => {
-        if (err) throw err;
-        res.send(result.rows)
+const getMenProducts = async (req, res) => {
+    const menProducts = await prisma.sneakers.findMany({
+        where: {
+            gender: 'male'
+        }
     })
+    res.send(menProducts)
 }
 
-const getProductsByType = (req, res) => {
-    let type = req.query.type;
-    pool.query("SELECT * from Sneakers WHERE type = ? ", [type], (err, result, fields) => {
-        if (err) throw err;
-        res.send(result.rows)
+const getWomenProducts = async (req, res) => {
+    const womenProducts = await prisma.sneakers.findMany({
+        where: {
+            gender: 'female'
+        }
     })
+    res.send(womenProducts)
 }
 
 // Get shirt by ID
-const getProduct = (req, res) => {
-    let id = req.query.id;
-    prisma.sneakers.findUnique({
+const getProduct = async (req, res) => {
+    let id = req.body.id;
+
+    const product = await prisma.sneakers.findUniqueOrThrow({
         where: {
-            id
+            id: id
         }
     })
+    res.send(product)
 }
 
-module.exports = { getBestSellers, getProducts, getProductsByType, getProduct }
+module.exports = { getBestSellers, getMenProducts, getWomenProducts, getProduct }

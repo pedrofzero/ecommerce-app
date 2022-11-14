@@ -12,6 +12,7 @@ model Sneakers {
   modifiedAt  DateTime @updatedAt
   id          String   @id @default(cuid())
   name        String
+  gender      String?
   description String
   image       String
   price       Float

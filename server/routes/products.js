@@ -1,5 +1,5 @@
 const express = require('express')
-const { getBestSellers, getProducts, getProductsByType, getProduct } = require('../controllers/products')
+const { getBestSellers, getWomenProducts, getMenProducts, getProduct } = require('../controllers/products')
 const router = express.Router()
 
 // router.route('/').get(getGame).post(addGame)
@@ -9,11 +9,11 @@ const router = express.Router()
 
 router.get('/getBestSellers', getBestSellers)
 
-router.get('/getProducts', getProducts)
+router.get('/getMenProducts', getMenProducts)
 
-router.get('/getProductsByType', getProductsByType)
+router.get('/getWomenProducts', getWomenProducts)
 
-router.get('/getProduct', getProduct)
+router.post('/getProduct', getProduct)
 
 
 module.exports = router
