@@ -3,8 +3,10 @@ import { Route, createBrowserRouter, RouterProvider, createRoutesFromElements } 
 import AppLayout from '../layout/appLayout'
 import Header from '../layout/header'
 import Cart from '../pages/cart'
+import Checkout from '../pages/checkout'
 import Home from '../pages/home'
 import SingleProduct from '../pages/product'
+import Store from '../pages/store'
 
 const Router = () => {
 
@@ -13,6 +15,8 @@ const Router = () => {
             <>
                 <Route path="/" element={<Home />} />
                 <Route path="/cart" element={<Cart />} />
+                <Route path="/store" element={<Store />} />
+                <Route path="/checkout" element={<Checkout />} />
                 <Route exact path="/product/:id" element={<SingleProduct />} />
             </>
         )

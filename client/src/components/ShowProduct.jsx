@@ -15,15 +15,15 @@ const ShowProduct = ({ title, data }) => {
         {title}
       </h1>
       <div className='border-2 border-solid border-black my-4'></div>
-      <div className='grid grid-cols-1 sm:grid-cols-3 gap-8'>
+      <div className='grid grid-cols-2 sm:grid-cols-3 gap-8'>
         {!data ? <Spinner /> :
           data.filter((item, index) => index < 3).map((product, index) => {
             return (
               <div>
-                <div key={product.id} className='hover:cursor-pointer flex flex-col items-center h-fit border-2 border-solid relative hover:border-blue-500'>
+                <div key={product.id} className='hover:cursor-pointer flex flex-col items-center border-2 border-solid relative'>
                   <div className='bg-gray-200'>
                     <Link to={`/product/${product.id}`}>
-                      <img src={product.image} className='h-fit' />
+                      <img src={product.image} className='h-auto transition hover:scale-110' />
                     </Link>
                   </div>
                   <div className='absolute bottom-0 left-0 flex justify-center w-14 h-6 bg-gray-400'>

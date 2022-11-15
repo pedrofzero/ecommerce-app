@@ -46,9 +46,9 @@ const SingleProduct = () => {
                     </div>
                     <div className='mt-4 text-2xl max-w-md m-auto'>
                         <h1 className='text-center'>{currentProduct.name}</h1>
-                        <div className='border-2 border-solid border-gray-300 max-w-sm w-24 mt-2 ml-4' />
-                        <p className='p-4 text-xl font-light'>{currentProduct.price} €</p>
-                        <div className='text-base p-4 mt-8'>
+                        <div className='border-2 border-solid border-gray-300 max-w-md w-24 mt-2 m-auto' />
+                        <p className='p-4 text-2xl text-center font-light'>{currentProduct.price} €</p>
+                        <div className='text-base p-4 mt-4'>
                             <p>{currentProduct.description}</p>
                         </div>
                         <div className='border-2 border-black border-solid h-12 w-64 rounded-lg text-center flex items-center justify-center m-auto mt-4 hover:bg-gray-200 hover:cursor-pointer transition active:'>

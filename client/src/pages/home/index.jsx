@@ -50,16 +50,13 @@ const Home = () => {
             <div className='flex flex-col m-auto text-center' style={{ maxWidth: '1400px' }}>
                 <h1 className='text-7xl'>Our Ethics</h1>
                 <p className='text-3xl pt-4 pb-6'>We are proud to build a better system in favour of our customers, to keep your experience as fast and easy as possible.</p>
-                
+
                 <img
                     className='object-cover'
                     src='https://images.unsplash.com/photo-1612831455546-a87cb4d6b276?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1325&q=80'
                 />
             </div>
-
-            
-
-                <Contact />
+            <Contact />
 
         </>
 

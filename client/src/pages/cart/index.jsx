@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
 import { useSelector, useDispatch } from 'react-redux'
+import axios from 'axios'
+
 import useWindowSize from '../../hooks/useWindowSize'
 import Header from '../../layout/header'
-import Menu from '../../layout/menu'
-import closeIcon from '../../assets/icons/x.svg'
+import { Link, Navigate } from 'react-router-dom'
 import { increaseQuantity, lowerQuantity, removeFromCart } from '../../redux/cartSlice'
 import { useNavigate } from 'react-router-dom'
-import StripeCheckout from 'react-stripe-checkout'
+import SadCart from '../../assets/cart-empty.png'
+import Checkout from '../checkout'
 
 const Cart = () => {
 
@@ -20,109 +21,64 @@ const Cart = () => {
   const cart = useSelector((state) => state.persistedReducer.cart.cartItems)
   const total = useSelector((state) => state.persistedReducer.cart.total)
 
-  // stripe
-  // const key = process.env.REACT_APP_STRIPE_KEY;
-
-  const [stripeToken, setStripeToken] = useState(null);
-
-  const onToken = (token) => {
-    setStripeToken(token)
-  }
-
-  // useEffect(() => {
-  //   const makeRequest = async () => {
-  //     try {
-  //       const res = await axios.post(`${process.env.REACT_APP_URL_PATH}/api/checkout/payment`, {
-  //         tokenId: stripeToken.id,
-  //         amount: total * 100,
-  //       });
-  //       navigate('/success', { data: res.data })
-  //     } catch{}
-  //   }
-  //   stripeToken && makeRequest();
-  // }, [stripeToken, total, navigate])
+  const description = cart.map(product => product.name).join(', ')
 
   return (
     <>
-
-      {/* Modals */}
-      {menuOpen &&
-        <Menu open={menuOpen} setMenuOpen={setMenuOpen} />
-      }
-
       <Header setMenuOpen={setMenuOpen} />
-      <Box sx={{ textAlign: 'center', margin: 0, padding: 0 }}>
-        <h1 style={{
-          margin: 0, padding: 0, display: 'flex',
-          justifyContent: 'center', alignItems: 'center', width: '100%', fontSize: `${size < 600 ? '80px' : '100px'}`
-        }}>Cart</h1>
-      </Box>
-      {cart.length !== 0
-        ?
-        <Grid container sx={{ p: 4, pt: 4 }}>
-          <Grid item xs={12} md={8} sx={{ height: `${size < 900 ? '500px' : '50%'}`, overflow: 'auto' }}>
+      {cart.length == 0 ?
+        <div>
+          <h1 className='text-center text-3xl my-4'>Oops, you have no items added to your cart!</h1>
+          <img src={SadCart} className='m-auto' />
+          <button type="submit" class="my-4 flex m-auto text-md bg-gray-100 hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5 text-center">Go shopping</button>
+        </div>
+        :
+        <div>
+          <h1 className='text-center text-3xl my-4'>Your cart</h1>
+
+          <div className='flex flex-col flex-1 max-w-sm md:max-w-2xl m-auto gap-4'>
             {cart.map((product, index) => {
               return (
-                <>
-                  <Stack direction='row' spacing={3} sx={size < 900 && { justifyContent: 'center' }}>
-                    <img src={`http://${process.env.REACT_APP_IMAGE_PATH}/${product.image_path}`} style={{ width: '20%', borderRadius: 10, height: 'auto', objectFit: 'contain' }} />
-                    <Stack direction='column'>
-                      <h1 >Product: {product.name}</h1>
-                      <h2>Price: {product.price}€</h2>
-                    </Stack>
-                    <Box sx={{ width: '30%', display: 'flex', justifyContent: 'end', alignItems: 'center' }}>
-                      <Stack direction='column' spacing={2} alignItems='center'>
-                        <Box>
-                          <img onClick={() => dispatch(removeFromCart(product))} src={closeIcon} />
-                        </Box>
-                        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', border: '1px solid black', borderRadius: '5px', width: '100px', height: '50px' }}>
-                          <button onClick={() => dispatch(lowerQuantity(product))}>-</button>
-                          <h4 style={{ padding: '1em' }}>{product.quantity}</h4>
-                          <button onClick={() => dispatch(increaseQuantity(product))}>+</button>
-                        </Box>
-                      </Stack>
-                    </Box>
-                  </Stack>
-                  <Box sx={{ pt: 1 }}></Box>
-                </>
+                <div key={index} className='flex items-center justify-between h-full w-full'>
 
+                  <div className='basis-2/6 relative'>
+                    <img src={product.image} className='border-2 border-solid rounded-lg border-gray-200 shadow-sm h-full' />
+                    <div className='absolute top-0 -right-2 rounded-lg bg-blue-200' style={{ width: '20px', height: '20px' }}>
+                      <p style={{ position: 'absolute', right: '5px', top: '-2px' }}>{product.quantity}</p>
+                    </div>
+                  </div>
+
+                  <div className='p-4 flex flex-col'>
+                    <p className='font-bold'>{product.name}</p>
+                    <p className='text-gray-500 font-medium'>{product.gender}</p>
+                    <p>{product.quantity}</p>
+                  </div>
+
+                  <div className='p-4 flex flex-col text-center'>
+                    <p>{product.price * product.quantity}€</p>
+                    <div className='flex gap-2 mt-2'>
+                      <button onClick={() => dispatch(increaseQuantity(product))} className='w-6 h-6 bg-gray-200'>+</button>
+                      <button onClick={() => dispatch(lowerQuantity(product))} className='w-6 h-6 bg-gray-200'>-</button>
+                      <button onClick={() => dispatch(removeFromCart(product))} className='w-6 h-6 bg-gray-200'>x</button>
+                    </div>
+                  </div>
+                </div>
               )
-
             })}
-          </Grid>
-
-          <Grid item xs={12} md={4}>
-            <Box sx={{ height: 300, m: 0, p: 0, border: '1px solid #0fc0fc', borderRadius: 5, mr: 4 }}>
-              <Stack direction='column' justifyContent='space-between' sx={{ height: '100%', width: '100%' }}>
-                <h1 style={{ margin: 0, padding: 0 }}>Order Summary:</h1>
-                <Box>
-                  <h1>Total amount: {total}</h1>
-                  <StripeCheckout
-                    currency="EUR"
-                    billingAddress
-                    shippingAddress
-                    bitcoin
-                    amount={total * 100}
-                    description={`Your total is: ${total}`}
-                    token={onToken}
-                    stripeKey={key}
-                  >
-                    <button style={{ width: '100%', backgroundColor: '#000', color: 'white', borderRadius: 10, height: '50px' }}>Checkout</button>
-                  </StripeCheckout>
-                </Box>
-              </Stack>
-            </Box>
-          </Grid>
-        </Grid>
-        :
-        <>
-          <Box sx={{ textAlign: 'center' }}>
-            <h1>Your shopping cart is empty..</h1>
-            <button style={{ width: '500px', backgroundColor: '#384E77', color: 'white', marginTop: '50px', borderRadius: 10, height: '70px', fontSize: '40px' }}
-              onClick={() => navigate('/collections/all')}>Go shopping</button>
-          </Box>
-        </>
+          </div>
+          <div className='max-w-2xl m-auto mt-4 border-b-2 border-solid border-gray-300'>
+            <div className='border-2 border-solid border-gray-300' />
+            <div className='flex items-center justify-center p-4'>
+              <h1 className='text-2xl'>Total: {total}€</h1>
+            </div>
+            <div>
+            </div>
+            <button onClick={() => navigate('/checkout', { state: { total, description } })}
+            type="submit" class=" mb-4 flex m-auto text-white items-center bg-black hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-20 py-2.5 text-center">Place order</button>
+        </div>
+        </div>
       }
+
     </>
   )
 }

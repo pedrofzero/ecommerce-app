@@ -1,21 +1,24 @@
 const router = require('express').Router()
-const stripe = require('stripe')(process.env.STRIPE_KEY)
+const stripe = require('stripe')(import.meta.env.STRIPE_SECRET_KEY)
 
-router.post("/payment", (req, res) => {
-    stripe.charges.create(
-        {
-            source: req.body.tokenId,
-            amount: req.body.amount,
-            currency: 'eur',
+router.post("/create-payment-intent", async (req, res) => {
+    const { description, total } = req.body;
+
+    // // Create a PaymentIntent with the order amount and currency
+    const paymentIntent = await stripe.paymentIntents.create({
+        amount: total,
+        currency: "eur",
+        automatic_payment_methods: {
+            enabled: true,
         },
-        (stripeErr, stripeRes) => {
-            if (stripeErr) {
-                res.status(500).json(stripeErr)
-            } else {
-                resstatus(200).json(stripeRes)
-            }
-        }
-    )
-})
+        description: description
+    });
+
+    res.send({
+        clientSecret: paymentIntent.client_secret,
+    }
+    );
+
+});
 
 module.exports = router
