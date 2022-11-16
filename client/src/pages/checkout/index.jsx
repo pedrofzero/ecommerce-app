@@ -32,8 +32,8 @@ const Checkout = () => {
             postal_code: shippingData.zip,
             state: shippingData.state
           }
-        }
-        
+        },
+        email: shippingData.email
       })
         .then((res) => {
           setClientSecret(res.data.clientSecret);

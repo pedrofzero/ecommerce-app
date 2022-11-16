@@ -24,7 +24,7 @@ const Header = ({ setMenuOpen }) => {
                         </Link>
                     </div>
                     <div className="hidden sm:flex justify-between items-center text-center gap-4 cursor-pointer">
-                        <Link to={'/shop'}>
+                        <Link to={'/store'}>
                             <p className='hover:underline'>Shop</p>
                         </Link>
                     </div>

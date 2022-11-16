@@ -2,8 +2,12 @@ import React from 'react'
 import Filter from '../../components/Filter'
 import Search from '../../components/Search'
 import Header from '../../layout/header'
+import { useLocation } from 'react-router-dom'
 
 const Store = () => {
+    const { state } = useLocation();
+    console.log(state)
+
     return (
         <div>
             <Header />
