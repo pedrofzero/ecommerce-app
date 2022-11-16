@@ -23,7 +23,7 @@ const Header = ({ setMenuOpen }) => {
                             sneakers
                         </Link>
                     </div>
-                    <div class="hidden sm:flex justify-between items-center text-center gap-4 cursor-pointer">
+                    <div className="hidden sm:flex justify-between items-center text-center gap-4 cursor-pointer">
                         <Link to={'/shop'}>
                             <p className='hover:underline'>Shop</p>
                         </Link>

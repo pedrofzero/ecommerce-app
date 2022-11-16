@@ -1,8 +1,10 @@
+require('dotenv').config()
+
 const router = require('express').Router()
-const stripe = require('stripe')(import.meta.env.STRIPE_SECRET_KEY)
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 
 router.post("/create-payment-intent", async (req, res) => {
-    const { description, total } = req.body;
+    const { description, total, shipping } = req.body;
 
     // // Create a PaymentIntent with the order amount and currency
     const paymentIntent = await stripe.paymentIntents.create({
@@ -11,7 +13,8 @@ router.post("/create-payment-intent", async (req, res) => {
         automatic_payment_methods: {
             enabled: true,
         },
-        description: description
+        description: description,
+        shipping
     });
 
     res.send({

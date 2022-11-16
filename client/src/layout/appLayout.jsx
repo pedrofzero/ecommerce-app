@@ -1,5 +1,6 @@
 import { Box } from '@mui/material'
 import React from 'react'
+import Header from './header'
 
 const AppLayout = ({ children }) => {
   return (
