@@ -23,7 +23,7 @@ const Success = () => {
                 paymentIntent: paymentIntent
             }).then(res => {
                 setPaymentData(res.data.shipping)
-                dispatch(wipeCart)
+                dispatch(wipeCart())
                 setLoading(false)
 
                 console.log(paymentData);
