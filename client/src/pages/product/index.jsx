@@ -34,7 +34,7 @@ const SingleProduct = () => {
         <>
             <Header />
             {loading ?
-                <div className='max-w-xl m-auto flex items-center'>
+                <div className='absolute inset-1/2'>
                     <Spinner />
                 </div>
                 :

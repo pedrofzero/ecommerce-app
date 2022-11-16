@@ -1,20 +1,45 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import Filter from '../../components/Filter'
 import Search from '../../components/Search'
 import Header from '../../layout/header'
-import { useLocation } from 'react-router-dom'
+import Spinner from '../../components/Spinner'
+import { allProductsFetch } from '../../redux/api'
+import ShowProducts from '../../components/ShowProducts'
 
 const Store = () => {
-    const { state } = useLocation();
-    console.log(state)
+
+    const [loading, setLoading] = useState(true)
+    const dispatch = useDispatch()
+    const products = useSelector((state) => state.persistedReducer.products.allProducts)
+
+    useEffect(() => {
+        const fetchAll = () => {
+            dispatch(allProductsFetch())
+            setLoading(false)
+        }
+        fetchAll()
+    }, [])
 
     return (
         <div>
-            <Header />
-            <Search />
-            <div className='grid grid-cols-1 sm:grid-cols-2 mt-4 text-center max-w-sm m-auto'>
-                <Filter />
-            </div>
+            {loading ?
+                <div className='absolute inset-1/2'>
+                    <Spinner />
+                </div>
+                :
+                <>
+                    <Header />
+                    <div className='max-w-sm m-auto'>
+                        {/* <Search /> */}
+                        <h1 className='text-3xl text-center my-6'>Shop</h1>
+                        <div className='my-4' />
+                        {/* <Filter /> */}
+                    </div>
+                    <ShowProducts data={products}/>
+                    
+                </>
+            }
         </div>
     )
 }

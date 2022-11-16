@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux';
 import { GiShoppingBag } from 'react-icons/gi'
@@ -23,7 +23,7 @@ const Header = ({ setMenuOpen }) => {
                             sneakers
                         </Link>
                     </div>
-                    <div className="hidden sm:flex justify-between items-center text-center gap-4 cursor-pointer">
+                    <div className={`${window.location.pathname == '/store' && 'hidden'} flex justify-between items-center text-center gap-4 cursor-pointer`}>
                         <Link to={'/store'}>
                             <p className='hover:underline'>Shop</p>
                         </Link>

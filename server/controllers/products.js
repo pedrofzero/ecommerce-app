@@ -9,6 +9,11 @@ const getBestSellers = async (req, res) => {
     res.send(bestSellers)
 }
 
+const getAllProducts = async (req, res) => {
+    const allProducts = await prisma.sneakers.findMany({})
+    res.send(allProducts)
+}
+
 // Get all shirts
 const getMenProducts = async (req, res) => {
     const menProducts = await prisma.sneakers.findMany({
@@ -40,4 +45,4 @@ const getProduct = async (req, res) => {
     res.send(product)
 }
 
-module.exports = { getBestSellers, getMenProducts, getWomenProducts, getProduct }
+module.exports = { getBestSellers, getMenProducts, getWomenProducts, getProduct, getAllProducts }

@@ -1,8 +1,9 @@
-import { menProductsFetch, womenProductsFetch, bestSellersFetch, singleProductFetch } from './api'
+import { menProductsFetch, womenProductsFetch, bestSellersFetch, singleProductFetch, allProductsFetch } from './api'
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     bestSellers: [],
+    allProducts: [],
     menProducts: [],
     womenProducts: [],
     currentProduct: [],
@@ -15,6 +16,17 @@ export const productsSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: {
+        [allProductsFetch.pending]: (state, action) => {
+            state.status = "pending"
+        },
+        [allProductsFetch.fulfilled]: (state, action) => {
+            state.status = "success"
+            state.allProducts = action.payload
+        },
+        [allProductsFetch.rejected]: (state, action) => {
+            state.status = "rejected"
+        },
+
         [womenProductsFetch.pending]: (state, action) => {
             state.status = "pending"
         },

@@ -4,8 +4,8 @@ import { AiOutlineSearch } from 'react-icons/ai'
 const Search = () => {
     return (
         <div>
-            <div className='flex items-center max-w-sm m-auto text-center mt-4 h-8 border-2 border-solid border-gray-300 rounded-lg relative'>
-                <div className='w-80'>
+            <div className='flex items-center m-auto text-center mt-4 h-8 border-2 border-solid border-gray-300 rounded-lg relative'>
+                <div className='w-72'>
                     <input type='text' className='w-full'/>
                     {/* <div className='absolute border-l-2 h-6 border-solid border-gray-300 right-8 w-20'>
                     </div> */}
